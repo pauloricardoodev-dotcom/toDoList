@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './admin.css'
 import { auth, db } from '../../firebaseConnection'
 import { signOut } from 'firebase/auth' 
@@ -18,7 +18,7 @@ export default function Admin(){
     const [tarefaInput, setTarefaInput] = useState('')
     const [user, setUser] = useState({})
     const [tarefas, setTarefas] = useState([])
-    const [edit, setEdit] = useState([]);
+    const [edit, setEdit] = useState({});
 
     useEffect(() => {
         async function loadTarefas(){
@@ -33,7 +33,7 @@ export default function Admin(){
                  where("userUid", "==", data?.uid))
                 const unsub = onSnapshot(q, (snapshot) => {
                     let lista = [];
-
+                    
                     snapshot.forEach((doc) => {
                         lista.push({
                             id:doc.id,
@@ -43,7 +43,8 @@ export default function Admin(){
                     })
 
                     setTarefas(lista)
-                })
+                });
+                return () => unsub();
             }
         }
 
