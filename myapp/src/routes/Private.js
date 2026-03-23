@@ -21,7 +21,7 @@ export default function Private({ children }){
             setSigned(false);
         }
         setLoading(false);
-    })
+    }
 
     return () => unsub();
 }, [])
