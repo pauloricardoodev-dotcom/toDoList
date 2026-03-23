@@ -29,6 +29,7 @@ export default function Private({ children }){
             })
         }
         checkLogin();
+        return () => unsub();
     }, [])
 
     if(loading){
